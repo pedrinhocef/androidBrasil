@@ -5,6 +5,7 @@ App de formuário desenvolvido com validações de acordo com as regras brasilei
 - Padrao Delegate
 - Material Design
 - ConstrainLayout
+- TextInputLayout
 # link do curso  
 https://cursos.alura.com.br/course/android-validacoes-formatacoes
 # Certificado de todos os cursos
