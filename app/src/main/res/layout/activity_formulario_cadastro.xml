@@ -1,110 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.FormularioCadastroActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_formulario_add"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/ic_formulario_add"
-        android:text="@string/dados_pessoais"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.FormularioCadastroActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/formulario_cadastro_nome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Nome Completo" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/ic_formulario_add"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_formulario_add"
+            android:text="@string/dados_pessoais"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/formulario_cadastro_cpf"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_nome"
-        app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_nome"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_nome">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/formulario_cadastro_nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome Completo" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/formulario_cadastro_cpf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_nome"
+            app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_nome"
+            app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_nome">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="CPF" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/formulario_cadastro_telefone"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="CPF" />
-    </android.support.design.widget.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_cpf"
+            app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_cpf"
+            app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_cpf">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/formulario_cadastro_telefone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_cpf"
-        app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_cpf"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_cpf">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefone com DDD" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/formulario_cadastro_email"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Telefone com DDD" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_telefone"
+            app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_telefone"
+            app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_telefone">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/formulario_cadastro_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_telefone"
-        app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_telefone"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_telefone">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-mail" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/formulario_cadastro_senha"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="E-mail" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_email"
+            app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_email"
+            app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_email">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/formulario_cadastro_senha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_email"
-        app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_email"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_email">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Senha" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/formulario_cadastro_botao_cadastrar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Senha" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/formulario_cadastro_botao_cadastrar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/botao_cadastrar"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_senha"
-        app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_senha"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_senha" />
-</android.support.constraint.ConstraintLayout>
+            android:layout_margin="10dp"
+            android:text="@string/botao_cadastrar"
+            app:layout_constraintEnd_toEndOf="@+id/formulario_cadastro_senha"
+            app:layout_constraintStart_toStartOf="@+id/formulario_cadastro_senha"
+            app:layout_constraintTop_toBottomOf="@+id/formulario_cadastro_senha" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

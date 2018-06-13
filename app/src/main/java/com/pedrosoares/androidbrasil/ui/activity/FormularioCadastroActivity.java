@@ -2,7 +2,6 @@ package com.pedrosoares.androidbrasil.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,25 +16,40 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_cadastro);
 
-        inicializandoCampos();
-
+        inicializaCampos();
     }
 
-    private void inicializandoCampos() {
-        TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);
-        addValidacaoPadrao(inputTextNome);
+    private void inicializaCampos() {
+        configuraCampoNome();
+        configuraCampoCpf();
+        configuraCampoTelefone();
+        configuraCampoEmail();
+        configuraCampoSenha();
+    }
 
-        TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
-        addValidacaoPadrao(inputTextCpf);
-
-        TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
-        addValidacaoPadrao(inputTextTelefone);
-
-        TextInputLayout inputTextEmail = findViewById(R.id.formulario_cadastro_email);
-        addValidacaoPadrao(inputTextEmail);
-
+    private void configuraCampoSenha() {
         TextInputLayout inputTextSenha = findViewById(R.id.formulario_cadastro_senha);
         addValidacaoPadrao(inputTextSenha);
+    }
+
+    private void configuraCampoEmail() {
+        TextInputLayout inputTextEmail = findViewById(R.id.formulario_cadastro_email);
+        addValidacaoPadrao(inputTextEmail);
+    }
+
+    private void configuraCampoTelefone() {
+        TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
+        addValidacaoPadrao(inputTextTelefone);
+    }
+
+    private void configuraCampoCpf() {
+        TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
+        addValidacaoPadrao(inputTextCpf);
+    }
+
+    private void configuraCampoNome() {
+        TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);
+        addValidacaoPadrao(inputTextNome);
     }
 
 
@@ -47,14 +61,18 @@ public class FormularioCadastroActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 String texto = campo.getText().toString();
                 if (!hasFocus){
-                    if (texto.isEmpty()){
-                        textInputCampo.setError("Campo Obrigatório");
-                    } else {
-                        textInputCampo.setError(null);
-                        textInputCampo.setErrorEnabled(false);
-                    }
+                    validaCampoObrigatorio(texto, textInputCampo);
                 }
             }
         });
+    }
+
+    private void validaCampoObrigatorio(String texto, TextInputLayout textInputCampo) {
+        if (texto.isEmpty()){
+            textInputCampo.setError("Campo Obrigatório");
+        } else {
+            textInputCampo.setError(null);
+            textInputCampo.setErrorEnabled(false);
+        }
     }
 }
