@@ -43,8 +43,19 @@ public class FormularioCadastroActivity extends AppCompatActivity {
     }
 
     private void configuraCampoCpf() {
-        TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
-        addValidacaoPadrao(inputTextCpf);
+        final TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
+        final EditText campoCpf = inputTextCpf.getEditText();
+        campoCpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String cpf = campoCpf.getText().toString();
+                if (!hasFocus) {
+                    if (!validaCampoObrigatorio(cpf, inputTextCpf))return;
+                    if (!validaCampoComOnzeDigitos(cpf,inputTextCpf))return;
+                    removeErro(inputTextCpf);
+                }
+            }
+        });
     }
 
     private void configuraCampoNome() {
@@ -60,19 +71,32 @@ public class FormularioCadastroActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String texto = campo.getText().toString();
-                if (!hasFocus){
-                    validaCampoObrigatorio(texto, textInputCampo);
+                if (!hasFocus) {
+                    if (!validaCampoObrigatorio(texto, textInputCampo))return;
+                    removeErro(textInputCampo);
                 }
             }
         });
     }
 
-    private void validaCampoObrigatorio(String texto, TextInputLayout textInputCampo) {
-        if (texto.isEmpty()){
+    private boolean validaCampoObrigatorio(String texto, TextInputLayout textInputCampo) {
+        if (texto.isEmpty()) {
             textInputCampo.setError("Campo Obrigatório");
-        } else {
-            textInputCampo.setError(null);
-            textInputCampo.setErrorEnabled(false);
+            return false;
         }
+        return true;
+    }
+
+    private void removeErro(TextInputLayout textInputCampo) {
+        textInputCampo.setError(null);
+        textInputCampo.setErrorEnabled(false);
+    }
+
+    public boolean validaCampoComOnzeDigitos(String cpf, TextInputLayout textInputCpf) {
+        if (cpf.length() != 11) {
+            textInputCpf.setError("O CPF precisa ter 11 dígitos");
+            return false;
+        }
+        return true;
     }
 }
