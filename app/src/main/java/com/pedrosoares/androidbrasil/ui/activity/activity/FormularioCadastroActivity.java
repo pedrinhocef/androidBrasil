@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.pedrosoares.androidbrasil.R;
+import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaCpf;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidadorPadrao;
 
 import br.com.caelum.stella.format.CPFFormatter;
@@ -52,21 +53,17 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         final TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
         final EditText campoCpf = inputTextCpf.getEditText();
         final CPFFormatter cpfFormatter = new CPFFormatter();
-        final ValidadorPadrao validador = new ValidadorPadrao(inputTextCpf);
+        final ValidaCpf validaCpf = new ValidaCpf(inputTextCpf);
         assert campoCpf != null;
         campoCpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String cpf = campoCpf.getText().toString();
                 if (!hasFocus) {
-                    if (!validador.estaValido())return;
-                    if (!validaCampoComOnzeDigitos(cpf,inputTextCpf))return;
-                    if (!validaCalculoCpf(cpf, inputTextCpf)) return;
+                    validaCpf.estaValido();
 
-                    String cpfFormatado = cpfFormatter.format(cpf);
-                    campoCpf.setText(cpfFormatado);
-                }else {
-                    try{
+                } else {
+                    try {
                         String cpdfSemFormato = cpfFormatter.unformat(cpf);
                         campoCpf.setText(cpdfSemFormato);
                     } catch (IllegalArgumentException e) {
@@ -77,16 +74,7 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validaCalculoCpf(String cpf, TextInputLayout inputTextCpf) {
-        try{
-            CPFValidator cpfValidator = new CPFValidator();
-            cpfValidator.assertValid(cpf);
-        } catch (InvalidStateException io) {
-            inputTextCpf.setError("CPF inválido");
-            return false;
-        }
-        return true;
-    }
+
 
     private void configuraCampoNome() {
         TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);
@@ -100,19 +88,11 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         campo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                String texto = campo.getText().toString();
                 if (!hasFocus) {
-                    if (!validador.estaValido())return;
-                                    }
+                    if (!validador.estaValido()) return;
+                }
             }
         });
     }
 
-    public boolean validaCampoComOnzeDigitos(String cpf, TextInputLayout textInputCpf) {
-        if (cpf.length() != 11) {
-            textInputCpf.setError("O CPF precisa ter 11 dígitos");
-            return false;
-        }
-        return true;
-    }
 }
