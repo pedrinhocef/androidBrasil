@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.pedrosoares.androidbrasil.R;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaCpf;
+import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidadorPadrao;
 
 import br.com.caelum.stella.format.CPFFormatter;
@@ -48,7 +49,16 @@ public class FormularioCadastroActivity extends AppCompatActivity {
 
     private void configuraCampoTelefone() {
         TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
-        addValidacaoPadrao(inputTextTelefone);
+        final EditText campoTelefone = inputTextTelefone.getEditText();
+        final ValidaTelefoneComDdd validaTelefone = new ValidaTelefoneComDdd(inputTextTelefone);
+        campoTelefone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    validaTelefone.estaValido();
+                }
+            }
+        });
     }
 
     private void configuraCampoCpf() {
