@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 public class ValidadorPadrao {
 
+    private static final String CAMPO_OBRIGATORIO = "Campo Obrigatório";
     private TextInputLayout textInputCampo;
     private EditText campo;
 
@@ -16,7 +17,7 @@ public class ValidadorPadrao {
     private boolean validaCampoObrigatorio() {
         String texto = campo.getText().toString();
         if (texto.isEmpty()) {
-            textInputCampo.setError("Campo Obrigatório");
+            textInputCampo.setError(CAMPO_OBRIGATORIO);
             return false;
         }
         return true;
