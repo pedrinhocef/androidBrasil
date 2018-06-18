@@ -14,8 +14,6 @@ import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidadorPadrao;
 
 import br.com.caelum.stella.format.CPFFormatter;
-import br.com.caelum.stella.validation.CPFValidator;
-import br.com.caelum.stella.validation.InvalidStateException;
 
 public class FormularioCadastroActivity extends AppCompatActivity {
 
@@ -54,7 +52,15 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         campoTelefone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+                String telefoneComDdd = campoTelefone.getText().toString();
+                if (hasFocus) {
+                    String telefoneSemFormatacao = telefoneComDdd
+                            .replace("(", "")
+                            .replace(")", "")
+                            .replace(" ", "")
+                            .replace("-", "");
+                    campoTelefone.setText(telefoneSemFormatacao);
+                } else {
                     validaTelefone.estaValido();
                 }
             }
@@ -71,7 +77,7 @@ public class FormularioCadastroActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    adicionaFormatacao(campoCpf, cpfFormatter);
+                    removeFormatacao(campoCpf, cpfFormatter);
                 } else {
                     validaCpf.estaValido();
                 }
@@ -79,7 +85,7 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         });
     }
 
-    private void adicionaFormatacao(EditText campoCpf, CPFFormatter cpfFormatter) {
+    private void removeFormatacao(EditText campoCpf, CPFFormatter cpfFormatter) {
         String cpf = campoCpf.getText().toString();
         try {
             String cpdfSemFormato = cpfFormatter.unformat(cpf);
@@ -88,7 +94,6 @@ public class FormularioCadastroActivity extends AppCompatActivity {
             Log.e(ERRO_FORMATACAO_CPF, e.getMessage());
         }
     }
-
 
     private void configuraCampoNome() {
         TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);

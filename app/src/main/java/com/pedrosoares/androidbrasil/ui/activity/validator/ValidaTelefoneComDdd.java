@@ -30,6 +30,28 @@ public class ValidaTelefoneComDdd {
         if (!validadorPadrao.estaValido()) return false;
         String telefone = campoCpf.getText().toString();
         if (!validaEntreDezOuOnzeDigitos(telefone)) return false;
+        adicionaFormatacao(telefone);
         return true;
+    }
+
+    private void adicionaFormatacao(String telefone) {
+        StringBuilder sb = new StringBuilder();
+        int digitos = telefone.length();
+        for (int i = 0; i < digitos; i++) {
+            if(i == 0) {
+                sb.append("(");
+            }
+            char digito = telefone.charAt(i);
+            sb.append(digito);
+            if (i == 1) {
+                sb.append(") ");
+            }
+            if (digitos == 10 && i == 5 || digitos == 11 && i == 6 ) {
+                sb.append("-");
+            }
+
+        }
+        String telefoneFormatado = sb.toString();
+        campoCpf.setText(telefoneFormatado);
     }
 }
