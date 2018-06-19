@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.pedrosoares.androidbrasil.R;
+import com.pedrosoares.androidbrasil.ui.activity.formatter.FormatadorTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaCpf;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidadorPadrao;
@@ -49,16 +50,13 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
         final EditText campoTelefone = inputTextTelefone.getEditText();
         final ValidaTelefoneComDdd validaTelefone = new ValidaTelefoneComDdd(inputTextTelefone);
+        final FormatadorTelefoneComDdd formatador = new FormatadorTelefoneComDdd();
         campoTelefone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String telefoneComDdd = campoTelefone.getText().toString();
                 if (hasFocus) {
-                    String telefoneSemFormatacao = telefoneComDdd
-                            .replace("(", "")
-                            .replace(")", "")
-                            .replace(" ", "")
-                            .replace("-", "");
+                    String telefoneSemFormatacao = formatador.remove(telefoneComDdd);
                     campoTelefone.setText(telefoneSemFormatacao);
                 } else {
                     validaTelefone.estaValido();

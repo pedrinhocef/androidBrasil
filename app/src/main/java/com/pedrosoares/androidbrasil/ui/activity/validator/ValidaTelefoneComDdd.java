@@ -3,12 +3,15 @@ package com.pedrosoares.androidbrasil.ui.activity.validator;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
+import com.pedrosoares.androidbrasil.ui.activity.formatter.FormatadorTelefoneComDdd;
+
 public class ValidaTelefoneComDdd {
 
     private static final String TELEFONE_DEVE_TER_10_OU_11_DIGITOS = "Telefone deve ter 10 ou 11 digítos";
     private final TextInputLayout textInputTelefone;
     private final EditText campoCpf;
     private ValidadorPadrao validadorPadrao;
+    private final FormatadorTelefoneComDdd formatador = new FormatadorTelefoneComDdd();
 
     public ValidaTelefoneComDdd(TextInputLayout textInputTelefone) {
         this.textInputTelefone = textInputTelefone;
@@ -35,23 +38,25 @@ public class ValidaTelefoneComDdd {
     }
 
     private void adicionaFormatacao(String telefone) {
-        StringBuilder sb = new StringBuilder();
-        int digitos = telefone.length();
-        for (int i = 0; i < digitos; i++) {
-            if(i == 0) {
-                sb.append("(");
-            }
-            char digito = telefone.charAt(i);
-            sb.append(digito);
-            if (i == 1) {
-                sb.append(") ");
-            }
-            if (digitos == 10 && i == 5 || digitos == 11 && i == 6 ) {
-                sb.append("-");
-            }
-
-        }
-        String telefoneFormatado = sb.toString();
+//        StringBuilder sb = new StringBuilder();
+//        int digitos = telefone.length();
+//        for (int i = 0; i < digitos; i++) {
+//            if(i == 0) {
+//                sb.append("(");
+//            }
+//            char digito = telefone.charAt(i);
+//            sb.append(digito);
+//            if (i == 1) {
+//                sb.append(") ");
+//            }
+//            if (digitos == 10 && i == 5 || digitos == 11 && i == 6 ) {
+//                sb.append("-");
+//            }
+//
+//        }
+//        String telefoneFormatado = sb.toString();
+        String telefoneFormatado = formatador.formata(telefone);
         campoCpf.setText(telefoneFormatado);
     }
+
 }
