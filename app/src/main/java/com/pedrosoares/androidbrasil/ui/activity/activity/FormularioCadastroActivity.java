@@ -42,25 +42,37 @@ public class FormularioCadastroActivity extends AppCompatActivity {
         configuraCampoTelefone();
         configuraCampoEmail();
         configuraCampoSenha();
+        configuraBotaoCadastrar();
+    }
+
+    private void configuraBotaoCadastrar() {
         Button cadastrar = findViewById(R.id.formulario_cadastro_botao_cadastrar);
         cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                boolean formularioEstaValido = true;
-                for (Validador validador : validadores) {
-                    if (!validador.estaValido()) {
-                        formularioEstaValido = false;
-                    }
-                }
+                boolean formularioEstaValido = validaTodosCampos();
                 if (formularioEstaValido) {
-                    Toast.makeText(
-                            FormularioCadastroActivity.this,
-                            "Cadastro realizado",
-                            Toast.LENGTH_SHORT).show();
+                    cadastroRealizado();
                 }
             }
         });
+    }
+
+    private void cadastroRealizado() {
+        Toast.makeText(
+                FormularioCadastroActivity.this,
+                "Cadastro realizado",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean validaTodosCampos() {
+        boolean formularioEstaValido = true;
+        for (Validador validador : validadores) {
+            if (!validador.estaValido()) {
+                formularioEstaValido = false;
+            }
+        }
+        return formularioEstaValido;
     }
 
     private void configuraCampoSenha() {
