@@ -3,7 +3,7 @@ package com.pedrosoares.androidbrasil.ui.activity.validator;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
-public class ValidadorPadrao {
+public class ValidadorPadrao implements Validador {
 
     private static final String CAMPO_OBRIGATORIO = "Campo Obrigatório";
     private TextInputLayout textInputCampo;
@@ -23,6 +23,7 @@ public class ValidadorPadrao {
         return true;
     }
 
+    @Override
     public boolean estaValido() {
         if (!validaCampoObrigatorio()) return false;
         removeErro();
