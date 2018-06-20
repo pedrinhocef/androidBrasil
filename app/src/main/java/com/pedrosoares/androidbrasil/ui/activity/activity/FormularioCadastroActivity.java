@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.pedrosoares.androidbrasil.R;
 import com.pedrosoares.androidbrasil.ui.activity.formatter.FormatadorTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaCpf;
+import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaEmail;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidaTelefoneComDdd;
 import com.pedrosoares.androidbrasil.ui.activity.validator.ValidadorPadrao;
 
@@ -43,73 +44,82 @@ public class FormularioCadastroActivity extends AppCompatActivity {
 
     private void configuraCampoEmail() {
         TextInputLayout inputTextEmail = findViewById(R.id.formulario_cadastro_email);
-        addValidacaoPadrao(inputTextEmail);
-    }
-
-    private void configuraCampoTelefone() {
-        TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
-        final EditText campoTelefone = inputTextTelefone.getEditText();
-        final ValidaTelefoneComDdd validaTelefone = new ValidaTelefoneComDdd(inputTextTelefone);
-        final FormatadorTelefoneComDdd formatador = new FormatadorTelefoneComDdd();
-        campoTelefone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String telefoneComDdd = campoTelefone.getText().toString();
-                if (hasFocus) {
-                    String telefoneSemFormatacao = formatador.remove(telefoneComDdd);
-                    campoTelefone.setText(telefoneSemFormatacao);
-                } else {
-                    validaTelefone.estaValido();
-                }
-            }
-        });
-    }
-
-    private void configuraCampoCpf() {
-        TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
-        final EditText campoCpf = inputTextCpf.getEditText();
-        final CPFFormatter cpfFormatter = new CPFFormatter();
-        final ValidaCpf validaCpf = new ValidaCpf(inputTextCpf);
-        assert campoCpf != null;
-        campoCpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    removeFormatacao(campoCpf, cpfFormatter);
-                } else {
-                    validaCpf.estaValido();
-                }
-            }
-        });
-    }
-
-    private void removeFormatacao(EditText campoCpf, CPFFormatter cpfFormatter) {
-        String cpf = campoCpf.getText().toString();
-        try {
-            String cpdfSemFormato = cpfFormatter.unformat(cpf);
-            campoCpf.setText(cpdfSemFormato);
-        } catch (IllegalArgumentException e) {
-            Log.e(ERRO_FORMATACAO_CPF, e.getMessage());
-        }
-    }
-
-    private void configuraCampoNome() {
-        TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);
-        addValidacaoPadrao(inputTextNome);
-    }
-
-    private void addValidacaoPadrao(final TextInputLayout textInputCampo) {
-        final EditText campo = textInputCampo.getEditText();
-        final ValidadorPadrao validador = new ValidadorPadrao(textInputCampo);
-        assert campo != null;
-        campo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        EditText campoEmail = inputTextEmail.getEditText();
+        final ValidaEmail validaEmail = new ValidaEmail(inputTextEmail);
+        campoEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    validador.estaValido();
+                    validaEmail.estaValido();
                 }
             }
         });
     }
 
-}
+        private void configuraCampoTelefone () {
+            TextInputLayout inputTextTelefone = findViewById(R.id.formulario_cadastro_telefone);
+            final EditText campoTelefone = inputTextTelefone.getEditText();
+            final ValidaTelefoneComDdd validaTelefone = new ValidaTelefoneComDdd(inputTextTelefone);
+            final FormatadorTelefoneComDdd formatador = new FormatadorTelefoneComDdd();
+            campoTelefone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    String telefoneComDdd = campoTelefone.getText().toString();
+                    if (hasFocus) {
+                        String telefoneSemFormatacao = formatador.remove(telefoneComDdd);
+                        campoTelefone.setText(telefoneSemFormatacao);
+                    } else {
+                        validaTelefone.estaValido();
+                    }
+                }
+            });
+        }
+
+        private void configuraCampoCpf () {
+            TextInputLayout inputTextCpf = findViewById(R.id.formulario_cadastro_cpf);
+            final EditText campoCpf = inputTextCpf.getEditText();
+            final CPFFormatter cpfFormatter = new CPFFormatter();
+            final ValidaCpf validaCpf = new ValidaCpf(inputTextCpf);
+            assert campoCpf != null;
+            campoCpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        removeFormatacao(campoCpf, cpfFormatter);
+                    } else {
+                        validaCpf.estaValido();
+                    }
+                }
+            });
+        }
+
+        private void removeFormatacao (EditText campoCpf, CPFFormatter cpfFormatter){
+            String cpf = campoCpf.getText().toString();
+            try {
+                String cpdfSemFormato = cpfFormatter.unformat(cpf);
+                campoCpf.setText(cpdfSemFormato);
+            } catch (IllegalArgumentException e) {
+                Log.e(ERRO_FORMATACAO_CPF, e.getMessage());
+            }
+        }
+
+        private void configuraCampoNome () {
+            TextInputLayout inputTextNome = findViewById(R.id.formulario_cadastro_nome);
+            addValidacaoPadrao(inputTextNome);
+        }
+
+        private void addValidacaoPadrao ( final TextInputLayout textInputCampo){
+            final EditText campo = textInputCampo.getEditText();
+            final ValidadorPadrao validador = new ValidadorPadrao(textInputCampo);
+            assert campo != null;
+            campo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        validador.estaValido();
+                    }
+                }
+            });
+        }
+
+    }
